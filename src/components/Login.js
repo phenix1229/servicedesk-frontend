@@ -17,7 +17,7 @@ class Login extends Component {
     handleSubmit = (event) => {
         const {email, password} = this.state;
         axios.post(
-            'http://localhost:8080/login',
+            'http://localhost:8080/users/login',
             {
                 user: {
                     email: email,

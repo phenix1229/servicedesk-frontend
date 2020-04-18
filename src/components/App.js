@@ -1,5 +1,6 @@
 import React , {Component} from 'react';
-import Login from './Login';
+import Navbar from "./layout/NavBar";
+import Landing from "./layout/Landing";
 
 class App extends Component {
     constructor(){
@@ -10,9 +11,9 @@ class App extends Component {
     };
     render(){
         return (
-            <div>
-                <h1>hello</h1>
-                <Login />
+            <div className="App">
+                <Navbar />
+                <Landing />
             </div>
         )
     }
