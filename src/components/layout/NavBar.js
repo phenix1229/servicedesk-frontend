@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Navbar extends Component {
     render() {
@@ -7,8 +7,8 @@ class Navbar extends Component {
             <div className="navbar-fixed">
                 <nav className="z-depth-0">
                 <div className="nav-wrapper white">
-                    <a
-                    href="/"
+                    <Link
+                    to="/"
                     style={{
                         fontFamily: "monospace"
                     }}
@@ -16,7 +16,7 @@ class Navbar extends Component {
                     >
                     <i className="material-icons">code</i>
                     MERN
-                    </a>
+                    </Link>
                 </div>
                 </nav>
             </div>
