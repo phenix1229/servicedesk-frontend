@@ -1,52 +1,83 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import jwt_decode from "jwt-decode";
-import setAuthToken from "../utils/setAuthToken";
-import { setCurrentUser, logoutUser } from "../actions/authActions";
-import { Provider } from "react-redux";
-import store from "../store";
-import Navbar from "./layout/NavBar";
-import Landing from "./layout/Landing";
-import Register from "./auth/Register";
-import Login from "./auth/Login";
-import PrivateRoute from "./private-route/PrivateRoute";
-import Dashboard from "./dashboard/Dashboard";
-
-// Check for token to keep user logged in
-if (localStorage.jwtToken) {
-    // Set auth token header auth
-    const token = localStorage.jwtToken;
-    setAuthToken(token);
-    // Decode token and get user info and exp
-    const decoded = jwt_decode(token);
-    // Set user and isAuthenticated
-    store.dispatch(setCurrentUser(decoded));// Check for expired token
-    const currentTime = Date.now() / 1000; // to get in milliseconds
-    if (decoded.exp < currentTime) {
-        // Logout user
-        store.dispatch(logoutUser());    // Redirect to login
-        window.location.href = "./login";
-    }
-};
+import React, { Component } from 'react';
+import axios from 'axios'
+import { Route, Link } from 'react-router-dom'
+// components
+import Signup from './Sign-up'
+import LoginForm from './Login-form'
+import Navbar from './Navbar'
+import Home from './Home'
 
 class App extends Component {
+    constructor() {
+    super();
+    this.state = {
+        loggedIn: false,
+        email: null
+    };
+
+    this.getUser = this.getUser.bind(this)
+    this.componentDidMount = this.componentDidMount.bind(this)
+    this.updateUser = this.updateUser.bind(this)
+    };
+
+    componentDidMount() {
+        this.getUser()
+    };
+
+    updateUser (userObject) {
+        this.setState(userObject)
+    };
+
+    getUser() {
+        axios.get('/user/').then(response => {
+        console.log('Get user response: ')
+        console.log(response.data)
+        if (response.data.user) {
+            console.log('Get User: There is a user saved in the server session: ')
+
+            this.setState({
+            loggedIn: true,
+            username: response.data.user.username
+            })
+        } else {
+            console.log('Get user: no user');
+            this.setState({
+            loggedIn: false,
+            username: null
+            })
+        }
+        })
+    };
+
     render() {
         return (
-            <Provider store={store}>
-                <Router>
-                <div className="App">
-                    <Navbar />
-                    <Route exact path="/" component={Landing} />
-                    <Route exact path="/register" component={Register} />
-                    <Route exact path="/login" component={Login} />
-                    <Switch>
-                    <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                    </Switch>
-                </div>
-                </Router>
-            </Provider>
+        <div className="App">
+    
+            <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
+            {/* greet user if logged in: */}
+            {this.state.loggedIn &&
+            <p>Join the party, {this.state.username}!</p>
+            }
+            {/* Routes to different components */}
+            <Route
+            exact path="/"
+            component={Home} />
+            <Route
+            path="/login"
+            render={() =>
+                <LoginForm
+                updateUser={this.updateUser}
+                />}
+            />
+            <Route
+            path="/signup"
+            render={() =>
+                <Signup/>}
+            />
+
+        </div>
         );
-    }
-};
+    };
+}
 
 export default App;
