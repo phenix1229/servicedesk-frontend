@@ -19,10 +19,11 @@ class App extends Component {
         };
     };
     loadTickets = () => {
-        const url = '/tickets';
-        axios.get(url).then((tickets) => {
-            // return console.log(blogs.data);
-            return this.setState({tickets: tickets})
+        // const url = '/tickets';
+        axios.get('/tickets').then((tickets) => {
+            console.log(tickets);
+            this.setState({tickets: tickets.data})
+            console.log(tickets);
         })
     }
     loadTicket = (id) => {
@@ -82,10 +83,11 @@ class App extends Component {
         })
     }
     componentDidMount(){
+        console.log('cdm')
         this.loadTickets();
     }
     render () {
-        console.log('Tickets...', this.state.tickets)
+        // console.log('Tickets...', this.state.tickets)
         return (
             <div id='app'>
                 <Sidebar />

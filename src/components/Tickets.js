@@ -4,18 +4,22 @@ import TicketItem from './TicketItem';
 import PropTypes from 'prop-types';
 
 const Tickets = (props) => {
-  return (
-    props.tickets.length > 0 &&
-    <div>
-      {props.tickets.data
-      .filter(searchIt(props.searchTerm))
-      .map((blog,idx)=>{
-        return (
-          <TicketItem  key={blog._id} onDelete={props.onDelete} onUpdate={props.onUpdate} ticket={props.ticket} />
-        )
-      })}
-    </div>
-  )
+  
+  if(props.tickets.length > 0){
+    return (
+      <div>
+        {props.tickets
+        .filter(searchIt(props.searchTerm))
+        .map((ticket,idx)=>{
+          return (
+            <TicketItem  key={ticket._id} onDelete={props.onDelete} onUpdate={props.onUpdate} ticket={ticket} />
+          )
+        })}
+      </div>
+      )
+    } else {
+      return null
+    }
 };
 
 Tickets.propTypes = {

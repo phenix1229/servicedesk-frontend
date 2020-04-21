@@ -11,8 +11,8 @@ class Form extends Component {
     handleChange=(event)=>{
         let updatedTicket = { ...this.state.ticket}
         updatedTicket[event.target.name]=event.target.value;
-        this.setState({blog:updatedTicket}, () => {
-            console.log(updatedTicket)
+        this.setState({Ticket:updatedTicket}, () => {
+            // console.log(updatedTicket)
         })
     };
     handleSubmit = (event) =>{
