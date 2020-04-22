@@ -29,11 +29,11 @@ class UpdateTicket extends Component {
     render(){
         return (
             <div style={{margin:'40px'}}>
-                <h1>Update Ticket:</h1>
+                <h1 style={{color:'rgb(107, 105, 105)'}}>Update Ticket:</h1>
                 <form onSubmit={this.handleSubmit} className="ui form" >
                     <div className="equal width fields">   
                         <div className="field">
-                            <label>Opened By</label>
+                            <label style={{color:'rgb(107, 105, 105)'}}>Opened By</label>
                             <div className="ui fluid input">
                                 <input type="text" 
                                 name="openedBy"
@@ -45,7 +45,7 @@ class UpdateTicket extends Component {
                     </div>
                     <div className="equal width fields">   
                         <div className="field">
-                            <label>Client</label>
+                            <label style={{color:'rgb(107, 105, 105)'}}>Client</label>
                                 <div className="ui fluid input">
                                     <input type="text" 
                                         name="client"
@@ -57,7 +57,7 @@ class UpdateTicket extends Component {
                     </div>
                     <div className="equal width fields">   
                         <div className="field">
-                            <label>Issue</label>
+                            <label style={{color:'rgb(107, 105, 105)'}}>Issue</label>
                             <div className="ui fluid input">
                                 <input type="text" 
                                     name="issue"
@@ -69,7 +69,7 @@ class UpdateTicket extends Component {
                     </div>
                     <div className="equal width fields">   
                         <div className="field">
-                            <label>Resolution</label>
+                            <label style={{color:'rgb(107, 105, 105)'}}>Resolution</label>
                             <div className="ui fluid input">
                                 <input type="text" 
                                     name="resolution"
@@ -81,7 +81,7 @@ class UpdateTicket extends Component {
                     </div>
                     <div className="equal width fields">   
                         <div className="field">
-                            <label>Closed By</label>
+                            <label style={{color:'rgb(107, 105, 105)'}}>Closed By</label>
                             <div className="ui fluid input">
                                 <input type="text" 
                                     name="closedBy"
@@ -93,7 +93,7 @@ class UpdateTicket extends Component {
                     </div>
                     <div className="equal width fields">   
                         <div className="field">
-                            <label>Close Date</label>
+                            <label style={{color:'rgb(107, 105, 105)'}}>Close Date</label>
                             <div className="ui fluid input">
                                 <input type="text" 
                                     name="closeDate"

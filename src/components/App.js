@@ -15,7 +15,8 @@ class App extends Component {
             closedTickets: false,
             tickets: [],
             searchTerm: '',
-            createTicket: true,
+            createTicket: false,
+            updateTicket: false,
             ticket: {}
         };
     };
@@ -53,7 +54,7 @@ class App extends Component {
     };
     handleChange = (event) => {
         this.setState({searchTerm:event.target.value}, ()=> {
-            console.log(this.state.searchTerm)
+            // console.log(this.state.searchTerm)
         })
     };
     handleCreateTicketSubmit = (event,ticket) => {
@@ -84,7 +85,7 @@ class App extends Component {
         })
     }
     handleCreateTicket = () => {
-        this.setState({createTicket:true})
+        this.setState({createTicket:true, openTickets:false, updateTicket:false, closedTickets:false})
     }
     componentDidMount(){
         this.loadTickets();

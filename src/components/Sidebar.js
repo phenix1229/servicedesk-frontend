@@ -13,15 +13,24 @@ class Sidebar extends Component {
     render (){
         return (
             <div id='sidebar'>
-                <h1>Menu</h1>
+                <p>
+                <h1 className='appTitle'>ServiceDesk</h1>
+                <h5 id='appSubtitle'>Ticket Tracker</h5>
+                </p>
                 <Search handleChange={this.props.handleChange} searchTerm={this.props.searchTerm} />
                 <br /> 
-                <button onClick={this.props.handleCreateTicket}>
-                <h3>New Ticket</h3>
+                <button className="ui primary button" style={{ backgroundColor:'#F2F2F2', color:'rgb(107, 105, 105)', marginBottom:'10px'}} onClick={this.props.handleCreateTicket}>
+                    <h3>New Ticket</h3>
                 </button>
-                <h3>Open Tickets</h3>
-                <h3>Closed Tickets</h3>
-                <h3>Logout</h3>
+                <button className="ui primary button" style={{ backgroundColor:'#F2F2F2', color:'rgb(107, 105, 105)', marginBottom:'10px'}}>
+                    <h3>Open Tickets</h3>
+                </button>
+                <button className="ui primary button" style={{ backgroundColor:'#F2F2F2', color:'rgb(107, 105, 105)', marginBottom:'10px'}}>
+                    <h3>Closed Tickets</h3>
+                </button>
+                <button className="ui primary button" style={{ backgroundColor:'#F2F2F2', color:'rgb(107, 105, 105)'}}>
+                    <h3>Logout</h3>
+                </button>
             </div>
         )
     }

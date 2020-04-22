@@ -14,6 +14,16 @@
     flex-direction: column;
     padding: 50px 15px 0px 15px;
     background-color: cornflowerblue;
+    color: rgb(107, 105, 105);
+}
+
+.appTitle {
+    margin: 0px;
+    color: rgb(110, 80, 133);
+}
+#appSubtitle {
+    margin-top: 0px;
+    color: rgba(110, 80, 133, 0.774);
 }
 
 #main {
