@@ -1,12 +1,11 @@
 import React , {Component} from 'react';
 import axios from 'axios';
 // import blogs from '../data/data';
-import Search from './Search';
 import CreateTicket from './CreateTicket';
 import Tickets from './Tickets';
 import UpdateTicket from './UpdateTicket';
 import Sidebar from './Sidebar';
-import './App.css';
+import './index.css';
 
 class App extends Component {
     constructor(){
@@ -90,17 +89,16 @@ class App extends Component {
         // console.log('Tickets...', this.state.tickets)
         return (
             <div id='app'>
-                <Sidebar />
+                <Sidebar handleChange={this.handleChange} searchTerm={this.state.searchTerm} />
                 <div id='main' style={{
-                    paddingTop:'100px',
-                    display:'flex', 
+                    // paddingTop:'100px',
+                    // display:'flex', 
                     justifyContent:'center', 
                     alignItems: 'center', 
-                    flexDirection:'column'
+                    // flexDirection:'column'
                 }}>
-                    <Search handleChange={this.handleChange} searchTerm={this.state.searchTerm} />
-                    <hr style={{width:'75%', color:'#3b3b3b', margin:'50px 0'}} />
                     {this.state.toggle ? (<CreateTicket handleCreateTicketSubmit={this.handleCreateTicketSubmit} />) : (<UpdateTicket ticket={this.state.ticket} handleUpdateTicketSubmit={this.handleUpdateTicketSubmit} />)}
+                    <hr style={{width:'75%', color:'#3b3b3b', margin:'50px 0'}} />
                     <Tickets tickets={this.state.tickets} searchTerm={this.state.searchTerm} onDelete={this.onDelete} onUpdate={this.onUpdate} />
                 </div>
             </div>

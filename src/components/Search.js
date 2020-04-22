@@ -6,11 +6,16 @@ const Search = (props) => {
         <div>
             <form className="ui form">
                 <div className="field">
+                    <br />
+                    <h3>Search Tickets:</h3>
                     <input 
                         onChange={props.handleChange}
-                        type="text" placeholder="Search by subject..."
+                        type="text" placeholder="Search by issue..."
                         value={props.searchTerm}
+                        style={{border:'1px solid grey'}}
                     />
+                    <br />
+                    <br />
                 </div>
             </form>
         </div>

@@ -8,10 +8,10 @@ const TicketItem=({onDelete, onUpdate, ticket})=> {
                 
                 <br />
                 <div className="meta">Opened By: {ticket.openedBy}</div>
+                <div className="meta">Open Date: {ticket.openDate}</div>
                 <div className="meta">Client: {ticket.client}</div>
-                <hr />
-                <div className="description"> {ticket.issue}</div>
-                <div className="description"> {ticket.resolution}</div>
+                <div className="meta">Issue: {ticket.issue}</div>
+                <div className="meta">Resolution: {ticket.resolution}</div>
                 <div className="meta">Closed By: {ticket.closedBy}</div>
                 <div className="meta">Close Date: {ticket.closeDate}</div>
                 <Button className="ui primary button" style={{ margin:'10px 15px'}} onClick={()=>{
