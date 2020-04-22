@@ -3,7 +3,7 @@ import Button from './Button'
 
 const TicketItem=({onDelete, onUpdate, ticket})=> {
     return(
-        <div  className="ui card" style={{width:'75%', padding:'20px'}}>
+        <div  className="ui card" style={{width:'75vw', padding:'20px'}}>
             <div className="content">
                 
                 <br />

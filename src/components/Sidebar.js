@@ -15,8 +15,12 @@ class Sidebar extends Component {
             <div id='sidebar'>
                 <h1>Menu</h1>
                 <Search handleChange={this.props.handleChange} searchTerm={this.props.searchTerm} />
-                <br />
+                <br /> 
+                <button onClick={this.props.handleCreateTicket}>
                 <h3>New Ticket</h3>
+                </button>
+                <h3>Open Tickets</h3>
+                <h3>Closed Tickets</h3>
                 <h3>Logout</h3>
             </div>
         )

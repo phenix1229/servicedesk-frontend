@@ -26,7 +26,7 @@ Tickets.propTypes = {
   onDelete: PropTypes.func,
   onUpdate: PropTypes.func,
   searchTerm: PropTypes.string,
-  blogs: PropTypes.arrayOf(
+  tickets: PropTypes.arrayOf(
     PropTypes.shape({
       openedBy: PropTypes.string.isRequired,
       client: PropTypes.string.isRequired,
@@ -34,7 +34,6 @@ Tickets.propTypes = {
       resolution: PropTypes.string.isRequired,
       closedBy: PropTypes.string.isRequired,
       closeDate: PropTypes.string.isRequired,
-      _id: PropTypes.string.isRequired
     })
   )
 };

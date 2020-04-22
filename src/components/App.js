@@ -1,6 +1,5 @@
 import React , {Component} from 'react';
 import axios from 'axios';
-// import blogs from '../data/data';
 import CreateTicket from './CreateTicket';
 import Tickets from './Tickets';
 import UpdateTicket from './UpdateTicket';
@@ -11,25 +10,32 @@ class App extends Component {
     constructor(){
         super()
         this.state = {
+            loggedIn: true,
+            openTickets: true,
+            closedTickets: false,
             tickets: [],
             searchTerm: '',
-            toggle: true,
+            createTicket: true,
             ticket: {}
         };
     };
     loadTickets = () => {
         // const url = '/tickets';
         axios.get('/tickets').then((tickets) => {
-            console.log(tickets);
-            this.setState({tickets: tickets.data})
-            console.log(tickets);
+            // console.log(tickets);
+            // this.setState({tickets: tickets.data})
+            // console.log(tickets);
+            const openTickets = tickets.data.filter((item) => {
+                return item.open === true
+            })
+            this.setState({tickets: openTickets})
         })
     }
     loadTicket = (id) => {
         axios.get(`/ticket/${id}`).then((ticket) => {
             // return console.log(blog.data)
             this.setState({
-                toggle: false,
+                createTicket: false,
                 ticket: ticket.data,
             })
         })
@@ -52,10 +58,6 @@ class App extends Component {
     };
     handleCreateTicketSubmit = (event,ticket) => {
         event.preventDefault();
-        // let updatedBlogs=[blog, ...this.state.blogs];
-        // this.setState({blogs: updatedBlogs}, () => {
-        //     console.log(this.state.blogs)
-        // })
         let axiosConfig = {
             headers:{
                 'Content-Type':'application/json;charset=UTF-8',
@@ -69,7 +71,7 @@ class App extends Component {
     handleUpdateTicketSubmit = (event, ticket, id) => {
         event.preventDefault();
         this.setState({
-            toggle: true
+            createTicket: true
         });
         let axiosConfig = {
             headers:{
@@ -81,28 +83,35 @@ class App extends Component {
             this.loadTickets();
         })
     }
+    handleCreateTicket = () => {
+        this.setState({createTicket:true})
+    }
     componentDidMount(){
-        console.log('cdm')
         this.loadTickets();
     }
     render () {
         // console.log('Tickets...', this.state.tickets)
+        if(this.state.loggedIn){
         return (
             <div id='app'>
-                <Sidebar handleChange={this.handleChange} searchTerm={this.state.searchTerm} />
+                <Sidebar handleChange={this.handleChange} searchTerm={this.state.searchTerm} handleCreateTicket={this.handleCreateTicket} />
                 <div id='main' style={{
-                    // paddingTop:'100px',
-                    // display:'flex', 
                     justifyContent:'center', 
                     alignItems: 'center', 
-                    // flexDirection:'column'
                 }}>
-                    {this.state.toggle ? (<CreateTicket handleCreateTicketSubmit={this.handleCreateTicketSubmit} />) : (<UpdateTicket ticket={this.state.ticket} handleUpdateTicketSubmit={this.handleUpdateTicketSubmit} />)}
+                    {this.state.createTicket ? (<CreateTicket handleCreateTicketSubmit={this.handleCreateTicketSubmit} />) : (<UpdateTicket ticket={this.state.ticket} handleUpdateTicketSubmit={this.handleUpdateTicketSubmit} />)}
                     <hr style={{width:'75%', color:'#3b3b3b', margin:'50px 0'}} />
                     <Tickets tickets={this.state.tickets} searchTerm={this.state.searchTerm} onDelete={this.onDelete} onUpdate={this.onUpdate} />
                 </div>
             </div>
         )
+            } else {
+                return (
+                    <div>
+                        <p>Pease log in</p>
+                    </div>
+                )
+            }
     };
 };
 
