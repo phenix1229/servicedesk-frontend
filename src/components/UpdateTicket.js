@@ -7,7 +7,7 @@ class UpdateTicket extends Component {
         super()
         this.state = {
             ticket:{
-                openedBy:'', client:'', issue:'', resolution:'', closedBy:'', closeDate:'', 
+                openedBy:'', client:'', issue:'', resolution:'', closedBy:'', closeDate:'' 
                 // objectId : new Date().getTime(),
             }
         };

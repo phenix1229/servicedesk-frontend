@@ -8,6 +8,7 @@ const Tickets = (props) => {
   if(props.tickets.length > 0){
     return (
       <div>
+        <br />
         {props.tickets
         .filter(searchIt(props.searchTerm))
         .map((ticket,idx)=>{
@@ -15,6 +16,7 @@ const Tickets = (props) => {
             <TicketItem  key={ticket._id} onDelete={props.onDelete} onUpdate={props.onUpdate} ticket={ticket} />
           )
         })}
+        <br />
       </div>
       )
     } else {

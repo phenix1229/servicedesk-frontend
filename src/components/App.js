@@ -13,49 +13,50 @@ class App extends Component {
             loggedIn: true,
             openTickets: true,
             closedTickets: false,
-            tickets: [],
-            searchTerm: '',
             createTicket: false,
             updateTicket: false,
+            searchTerm: '',
+            tickets: [],
             ticket: {}
         };
     };
-    loadTickets = () => {
-        // const url = '/tickets';
+    loadOpenTickets = () => {
         axios.get('/tickets').then((tickets) => {
-            // console.log(tickets);
-            // this.setState({tickets: tickets.data})
-            // console.log(tickets);
             const openTickets = tickets.data.filter((item) => {
                 return item.open === true
             })
-            this.setState({tickets: openTickets})
+            this.setState({tickets: openTickets, openTickets:true, closedTickets:false, createTicket:false, updateTicket:false, ticket:{}})
         })
-    }
+    };
+    loadClosedTickets = () => {
+        axios.get('/tickets').then((tickets) => {
+            const closedTickets = tickets.data.filter((item) => {
+                return item.open === false
+            })
+            this.setState({tickets: closedTickets, openTickets:false, closedTickets:true, createTicket:false, updateTicket:false, ticket:{}})
+        })
+    };
     loadTicket = (id) => {
         axios.get(`/ticket/${id}`).then((ticket) => {
-            // return console.log(blog.data)
             this.setState({
                 createTicket: false,
+                openTickets: false,
+                closedTickets: false,
                 ticket: ticket.data,
             })
         })
-    }
+    };
     onDelete = (id) => {
-        // const updatedBlogs = this.state.blogs.filter((item => item.objectId !== id));
-        // this.setState({blogs:updatedBlogs});
         axios.delete(`/ticket/${id}`).then(() => {
-            this.loadTickets();
+            this.loadOpenTickets();
         })
     };
     onUpdate = (id) => {
-        // return console.log(`Update : ${id}`)
         this.loadTicket(id);
         this.setState({createTicket:false, openTickets:false, updateTicket:true, closedTickets:false});
     };
     handleChange = (event) => {
         this.setState({searchTerm:event.target.value}, ()=> {
-            // console.log(this.state.searchTerm)
         })
     };
     handleCreateTicketSubmit = (event,ticket) => {
@@ -69,6 +70,7 @@ class App extends Component {
         axios.post('/ticket', ticket, axiosConfig).then(() => {
             this.setState({openTickets:true, closedTickets:false, updateTicket:false, createTicket:false});
         });
+        this.loadOpenTickets();
     };
     handleUpdateTicketSubmit = (event, ticket, id) => {
         event.preventDefault();
@@ -82,21 +84,21 @@ class App extends Component {
             }
         };
         axios.put(`/ticket/${id}`, ticket, axiosConfig).then(() => {
-            this.setState({openTickets:true, closedTickets:false, updateTicket:false, createTicket:false});
+            this.setState({openTickets:true, closedTickets:false, updateTicket:false, createTicket:false, ticket:{}});
         })
-    }
+        this.loadOpenTickets();
+    };
     handleCreateTicket = () => {
         this.setState({createTicket:true, openTickets:false, updateTicket:false, closedTickets:false})
-    }
+    };
     componentDidMount(){
-        this.loadTickets();
-    }
+        this.loadOpenTickets();
+    };
     render () {
-        // console.log('Tickets...', this.state.tickets)
         if(this.state.loggedIn){
         return (
             <div id='app'>
-                <Sidebar handleChange={this.handleChange} searchTerm={this.state.searchTerm} handleCreateTicket={this.handleCreateTicket} />
+                <Sidebar handleChange={this.handleChange} searchTerm={this.state.searchTerm} handleCreateTicket={this.handleCreateTicket} loadOpenTickets={this.loadOpenTickets} loadClosedTickets={this.loadClosedTickets} />
                 <div id='main' style={{
                     justifyContent:'center', 
                     alignItems: 'center', 
@@ -104,6 +106,7 @@ class App extends Component {
                     {this.state.createTicket ? (<CreateTicket handleCreateTicketSubmit={this.handleCreateTicketSubmit} />) : null}
                     {this.state.updateTicket ? (<UpdateTicket handleUpdateTicketSubmit={this.handleUpdateTicketSubmit} ticket={this.state.ticket} />) : null}
                     {this.state.openTickets ? (<Tickets tickets={this.state.tickets} searchTerm={this.state.searchTerm} onDelete={this.onDelete} onUpdate={this.onUpdate} />) : null}
+                    {this.state.closedTickets ? (<Tickets tickets={this.state.tickets} searchTerm={this.state.searchTerm} onDelete={this.onDelete} onUpdate={this.onUpdate} />) : null}
                 </div>
             </div>
         )
