@@ -14,7 +14,7 @@ class Sidebar extends Component {
         return (
             <div id='sidebar'>
                 <p>
-                <h1 className='appTitle'>ServiceDesk</h1>
+                <h1 id='appTitle'>ServiceDesk</h1>
                 <h5 id='appSubtitle'>Ticket Tracker</h5>
                 </p>
                 <Search handleChange={this.props.handleChange} searchTerm={this.props.searchTerm} />

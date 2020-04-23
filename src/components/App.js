@@ -51,6 +51,7 @@ class App extends Component {
     onUpdate = (id) => {
         // return console.log(`Update : ${id}`)
         this.loadTicket(id);
+        this.setState({createTicket:false, openTickets:false, updateTicket:true, closedTickets:false});
     };
     handleChange = (event) => {
         this.setState({searchTerm:event.target.value}, ()=> {
@@ -66,7 +67,7 @@ class App extends Component {
             }
         };
         axios.post('/ticket', ticket, axiosConfig).then(() => {
-            this.loadTickets();
+            this.setState({openTickets:true, closedTickets:false, updateTicket:false, createTicket:false});
         });
     };
     handleUpdateTicketSubmit = (event, ticket, id) => {
@@ -81,7 +82,7 @@ class App extends Component {
             }
         };
         axios.put(`/ticket/${id}`, ticket, axiosConfig).then(() => {
-            this.loadTickets();
+            this.setState({openTickets:true, closedTickets:false, updateTicket:false, createTicket:false});
         })
     }
     handleCreateTicket = () => {
@@ -100,9 +101,9 @@ class App extends Component {
                     justifyContent:'center', 
                     alignItems: 'center', 
                 }}>
-                    {this.state.createTicket ? (<CreateTicket handleCreateTicketSubmit={this.handleCreateTicketSubmit} />) : (<UpdateTicket ticket={this.state.ticket} handleUpdateTicketSubmit={this.handleUpdateTicketSubmit} />)}
-                    <hr style={{width:'75%', color:'#3b3b3b', margin:'50px 0'}} />
-                    <Tickets tickets={this.state.tickets} searchTerm={this.state.searchTerm} onDelete={this.onDelete} onUpdate={this.onUpdate} />
+                    {this.state.createTicket ? (<CreateTicket handleCreateTicketSubmit={this.handleCreateTicketSubmit} />) : null}
+                    {this.state.updateTicket ? (<UpdateTicket handleUpdateTicketSubmit={this.handleUpdateTicketSubmit} ticket={this.state.ticket} />) : null}
+                    {this.state.openTickets ? (<Tickets tickets={this.state.tickets} searchTerm={this.state.searchTerm} onDelete={this.onDelete} onUpdate={this.onUpdate} />) : null}
                 </div>
             </div>
         )
