@@ -7,7 +7,7 @@ class UpdateTicket extends Component {
         super()
         this.state = {
             ticket:{
-                comments:[], issue:'', resolution:'', closedBy:'', closeDate:'' 
+                openedBy:'', client:'', issue:'', resolution:'', closedBy:'', closeDate:'' 
             }
         };
     };
@@ -30,6 +30,30 @@ class UpdateTicket extends Component {
             <div style={{margin:'40px'}}>
                 <h1 style={{color:'rgb(107, 105, 105)'}}>Update Ticket:</h1>
                 <form onSubmit={this.handleSubmit} className="ui form" >
+                    <div className="equal width fields">   
+                        <div className="field">
+                            <label style={{color:'rgb(107, 105, 105)'}}>Opened By</label>
+                            <div className="ui fluid input">
+                                <input type="text" 
+                                name="openedBy"
+                                defaultValue={this.props.ticket.openedBy}
+                                onChange={this.handleChange}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="equal width fields">   
+                        <div className="field">
+                            <label style={{color:'rgb(107, 105, 105)'}}>Client</label>
+                                <div className="ui fluid input">
+                                    <input type="text" 
+                                        name="client"
+                                        defaultValue={this.props.ticket.client}
+                                        onChange={this.handleChange}
+                                    />
+                                </div>
+                        </div>
+                    </div>
                     <div className="equal width fields">   
                         <div className="field">
                             <label style={{color:'rgb(107, 105, 105)'}}>Issue</label>

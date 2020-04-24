@@ -8,12 +8,12 @@ class CreateTicket extends Component {
         this.state = {
             ticket:{
                 openedBy:'', client:'', issue:'', resolution:'', closedBy:'', closeDate:'', 
-                // objectId : new Date().getTime(),
             }
         };
     };
     handleChange=(event)=>{
-        let updatedTicket = { ...this.state.ticket}
+        let updatedTicket = { ...this.state.ticket};
+        updatedTicket.openedBy = this.props.user.name;
         updatedTicket[event.target.name]=event.target.value;
         this.setState({ticket:updatedTicket}, () => {
             console.log(updatedTicket)
@@ -31,18 +31,7 @@ class CreateTicket extends Component {
             <div style={{margin:'40px'}}>
                 <h1 style={{color:'rgb(107, 105, 105)'}}>Create Ticket:</h1>
                 <form onSubmit={this.handleSubmit} className="ui form" >
-                    <div className="equal width fields">   
-                        <div className="field">
-                            <label style={{color:'rgb(107, 105, 105)'}}>Opened By</label>
-                            <div className="ui fluid input">
-                                <input type="text" placeholder="Opened by..."
-                                name="openedBy"
-                                value={this.state.ticket.openedBy}
-                                onChange={this.handleChange}
-                                />
-                            </div>
-                        </div>
-                    </div>
+                   
                     <div className="equal width fields">   
                         <div className="field">
                             <label style={{color:'rgb(107, 105, 105)'}}>Client</label>

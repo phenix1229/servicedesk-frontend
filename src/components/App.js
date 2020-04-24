@@ -4,21 +4,32 @@ import CreateTicket from './CreateTicket';
 import Tickets from './Tickets';
 import UpdateTicket from './UpdateTicket';
 import Sidebar from './Sidebar';
+import LoginForm from './LoginForm';
 import './index.css';
+
 
 class App extends Component {
     constructor(){
         super()
         this.state = {
-            loggedIn: true,
-            openTickets: true,
+            loggedIn: false,
+            openTickets: false,
             closedTickets: false,
             createTicket: false,
             updateTicket: false,
             searchTerm: '',
             tickets: [],
-            ticket: {}
+            ticket: {},
+            userObject:{}
         };
+    };
+    updateUser = (user) => {
+        this.setState({
+        loggedIn: true,
+        userObject: user,
+        openTickets: true
+        })
+        this.loadOpenTickets();
     };
     loadOpenTickets = () => {
         axios.get('/tickets').then((tickets) => {
@@ -69,13 +80,13 @@ class App extends Component {
         };
         axios.post('/ticket', ticket, axiosConfig).then(() => {
             this.setState({openTickets:true, closedTickets:false, updateTicket:false, createTicket:false});
+            this.loadOpenTickets();
         });
-        this.loadOpenTickets();
     };
     handleUpdateTicketSubmit = (event, ticket, id) => {
         event.preventDefault();
         this.setState({
-            createTicket: true
+            createTicket: false
         });
         let axiosConfig = {
             headers:{
@@ -85,14 +96,14 @@ class App extends Component {
         };
         axios.put(`/ticket/${id}`, ticket, axiosConfig).then(() => {
             this.setState({openTickets:true, closedTickets:false, updateTicket:false, createTicket:false, ticket:{}});
+            this.loadOpenTickets();
         })
-        this.loadOpenTickets();
     };
     handleCreateTicket = () => {
         this.setState({createTicket:true, openTickets:false, updateTicket:false, closedTickets:false})
     };
     componentDidMount(){
-        this.loadOpenTickets();
+        // this.loadOpenTickets();
     };
     render () {
         if(this.state.loggedIn){
@@ -103,7 +114,7 @@ class App extends Component {
                     justifyContent:'center', 
                     alignItems: 'center', 
                 }}>
-                    {this.state.createTicket ? (<CreateTicket handleCreateTicketSubmit={this.handleCreateTicketSubmit} />) : null}
+                    {this.state.createTicket ? (<CreateTicket handleCreateTicketSubmit={this.handleCreateTicketSubmit} user={this.state.userObject} />) : null}
                     {this.state.updateTicket ? (<UpdateTicket handleUpdateTicketSubmit={this.handleUpdateTicketSubmit} ticket={this.state.ticket} />) : null}
                     {this.state.openTickets ? (<Tickets tickets={this.state.tickets} searchTerm={this.state.searchTerm} onDelete={this.onDelete} onUpdate={this.onUpdate} />) : null}
                     {this.state.closedTickets ? (<Tickets tickets={this.state.tickets} searchTerm={this.state.searchTerm} onDelete={this.onDelete} onUpdate={this.onUpdate} />) : null}
@@ -112,9 +123,7 @@ class App extends Component {
         )
             } else {
                 return (
-                    <div>
-                        <p>Pease log in</p>
-                    </div>
+                    <LoginForm updateUser={this.updateUser} />
                 )
             }
     };
