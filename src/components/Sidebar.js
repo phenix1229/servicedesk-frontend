@@ -37,7 +37,7 @@ class Sidebar extends Component {
 
 Sidebar.propTypes = {
     logoutUser: PropTypes.func,
-    searchTerm: PropTypes.func,
+    searchTerm: PropTypes.string,
     handleCreateTicket: PropTypes.func,
     loadOpenTickets: PropTypes.func,
     loadClosedTickets: PropTypes.func,
