@@ -11,17 +11,12 @@ class UpdateTicket extends Component {
             }
         };
     };
-    handleChange=(event)=>{
-        let updatedTicket = {...this.state.ticket}
-        this.props.ticket.comments.push(event.target.value);
-        const newComments = [...this.props.ticket.comments]
-        updatedTicket.comments=newComments
-        this.setState({ticket:updatedTicket}, () => {
-        })
-    };
     handleSubmit = (event) =>{
         event.preventDefault();
-        this.props.handleUpdateTicketSubmit(event, this.state.ticket, this.props.ticket._id);
+        let updatedTicket = {comments:[]};
+        this.props.ticket.comments.push(document.getElementById('comment').value);
+        updatedTicket.comments=[...this.props.ticket.comments];
+        this.props.handleUpdateTicketSubmit(event, updatedTicket, this.props.ticket._id);
     };
     render(){
         return (
@@ -34,7 +29,7 @@ class UpdateTicket extends Component {
                             <div className="ui fluid input">
                                 <input type="text" 
                                     name="comments"
-                                    onChange={this.handleChange}
+                                    id="comment"
                                 />
                             </div>
                         </div>
