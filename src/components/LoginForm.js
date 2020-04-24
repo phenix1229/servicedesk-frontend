@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
+import './index.css'
 
 class LoginForm extends Component {
     constructor(){
@@ -37,12 +39,17 @@ class LoginForm extends Component {
 }
     render(){
         return (
-            <div style={{margin:'40px'}}>
+            <div id='loginFormMain'>
+            <div id='loginFormHeader'>
+                    <h1 id='appTitle' style={{fontSize:'40px'}}>ServiceDesk</h1>
+                    <h5 id='appSubtitle'>Ticket Tracker</h5>
+            </div>
+            <div id='loginForm'>
                 <form onSubmit={this.handleSubmit} className="ui form" >
                     <div className="equal width fields">   
                         <div className="field">
                             <label>Email</label>
-                            <div className="ui fluid input">
+                            <div className="ui fluid input" style={{width:'300px'}}>
                                 <input type="text" placeholder="Email..."
                                     name="email"
                                     value={this.state.user.email}
@@ -54,7 +61,7 @@ class LoginForm extends Component {
                     <div className="equal width fields">   
                         <div className="field">
                             <label>password</label>
-                            <div className="ui fluid input">
+                            <div className="ui fluid input" style={{width:'300px'}}>
                                 <input type="text" placeholder="Password..."
                                     name="password"
                                     value={this.state.user.password}
@@ -68,9 +75,13 @@ class LoginForm extends Component {
                     </div>
                 </form>
             </div>
+            </div>
         )
     }
 };
 
+LoginForm.propTypes = {
+    updateUser: PropTypes.func,
+}
 
 export default LoginForm;

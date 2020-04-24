@@ -23,7 +23,7 @@ class CreateTicket extends Component {
         event.preventDefault();
         this.props.handleCreateTicketSubmit(event, this.state.ticket)
         let emptyTicket= {openedBy:'', client:'', issue:'', resolution:'', closedBy:'', closeDate:''};
-        this.setState({ticket :emptyTicket});
+        this.setState({ticket:emptyTicket});
         event.target.reset();
     };
     render(){
@@ -31,7 +31,6 @@ class CreateTicket extends Component {
             <div style={{margin:'40px'}}>
                 <h1 style={{color:'rgb(107, 105, 105)'}}>Create Ticket:</h1>
                 <form onSubmit={this.handleSubmit} className="ui form" >
-                   
                     <div className="equal width fields">   
                         <div className="field">
                             <label style={{color:'rgb(107, 105, 105)'}}>Client</label>
@@ -51,42 +50,6 @@ class CreateTicket extends Component {
                                 <input type="text" placeholder="Issue..."
                                     name="issue"
                                     value={this.state.ticket.issue}
-                                    onChange={this.handleChange}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="equal width fields">   
-                        <div className="field">
-                            <label style={{color:'rgb(107, 105, 105)'}}>Resolution</label>
-                            <div className="ui fluid input">
-                                <input type="text" placeholder="Resolution..."
-                                    name="resolution"
-                                    value={this.state.ticket.resolution}
-                                    onChange={this.handleChange}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="equal width fields">   
-                        <div className="field">
-                            <label style={{color:'rgb(107, 105, 105)'}}>Closed By</label>
-                            <div className="ui fluid input">
-                                <input type="text" placeholder="Closed by..."
-                                    name="closedBy"
-                                    value={this.state.ticket.closedBy}
-                                    onChange={this.handleChange}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="equal width fields">   
-                        <div className="field">
-                            <label style={{color:'rgb(107, 105, 105)'}}>Close Date</label>
-                            <div className="ui fluid input">
-                                <input type="text" placeholder="Close date..."
-                                    name="closeDate"
-                                    value={this.state.ticket.closeDate}
                                     onChange={this.handleChange}
                                 />
                             </div>

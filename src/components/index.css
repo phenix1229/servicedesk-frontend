@@ -35,3 +35,23 @@
     flex-direction: column;
     overflow-x: auto;
 }
+
+#loginFormMain {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr 1fr;
+}
+
+#loginFormHeader {
+    grid-column: 1/6;
+    grid-row: 1/2;
+    height: 100px;
+    text-align: center;
+    background-color: cornflowerblue;
+    padding-top:'20px';
+    padding-bottom:'20px';
+}
+#loginForm {
+    grid-column: 3/4;
+    grid-row: 2/3;
+}

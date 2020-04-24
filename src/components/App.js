@@ -12,7 +12,7 @@ class App extends Component {
     constructor(){
         super()
         this.state = {
-            loggedIn: false,
+            loggedIn: true,
             openTickets: false,
             closedTickets: false,
             createTicket: false,
@@ -31,6 +31,20 @@ class App extends Component {
         })
         this.loadOpenTickets();
     };
+    logoutUser = () => {
+        // axios.get('/users/logout').then(() => {
+            this.setState({
+                loggedIn: false,
+                openTickets: false,
+                createTicket: false,
+                closedTickets: false,
+                updateTicket: false,
+                tickets: [],
+                ticket: {},
+                userObject: {}
+            // })
+        })
+    }
     loadOpenTickets = () => {
         axios.get('/tickets').then((tickets) => {
             const openTickets = tickets.data.filter((item) => {
@@ -109,7 +123,7 @@ class App extends Component {
         if(this.state.loggedIn){
         return (
             <div id='app'>
-                <Sidebar handleChange={this.handleChange} searchTerm={this.state.searchTerm} handleCreateTicket={this.handleCreateTicket} loadOpenTickets={this.loadOpenTickets} loadClosedTickets={this.loadClosedTickets} />
+                <Sidebar handleChange={this.handleChange} searchTerm={this.state.searchTerm} handleCreateTicket={this.handleCreateTicket} loadOpenTickets={this.loadOpenTickets} loadClosedTickets={this.loadClosedTickets} logoutUser={this.logoutUser} />
                 <div id='main' style={{
                     justifyContent:'center', 
                     alignItems: 'center', 
