@@ -13,7 +13,7 @@ class App extends Component {
     constructor(){
         super()
         this.state = {
-            loggedIn: true,
+            loggedIn: false,
             openTickets: false,
             closedTickets: false,
             createTicket: false,
@@ -77,7 +77,7 @@ class App extends Component {
             this.loadOpenTickets();
         })
     };
-    onClose = (id) => {
+    handleCloseTicket = (id) => {
         this.loadTicket(id);
         this.setState({updateTicket:false, closeTicket:true});
     };
@@ -136,8 +136,8 @@ class App extends Component {
                 }}>
                     {this.state.createTicket ? (<CreateTicket handleCreateTicketSubmit={this.handleCreateTicketSubmit} user={this.state.userObject} />) : null}
                     {this.state.updateTicket ? (<UpdateTicket handleUpdateTicketSubmit={this.handleUpdateTicketSubmit} ticket={this.state.ticket} />) : null}
-                    {this.state.closeTicket ? (<CloseTicket handleUpdateTicketSubmit={this.handleUpdateTicketSubmit} ticket={this.state.ticket} />) : null}
-                    {this.state.openTickets ? (<Tickets tickets={this.state.tickets} searchTerm={this.state.searchTerm} onClose={this.onClose} onUpdate={this.onUpdate} />) : null}
+                    {this.state.closeTicket ? (<CloseTicket handleUpdateTicketSubmit={this.handleUpdateTicketSubmit} ticket={this.state.ticket} user={this.state.userObject} />) : null}
+                    {this.state.openTickets ? (<Tickets tickets={this.state.tickets} searchTerm={this.state.searchTerm} handleCloseTicket={this.handleCloseTicket} onUpdate={this.onUpdate} />) : null}
                     {this.state.closedTickets ? (<Tickets tickets={this.state.tickets} searchTerm={this.state.searchTerm} onDelete={this.onDelete} onUpdate={this.onUpdate} />) : null}
                 </div>
             </div>

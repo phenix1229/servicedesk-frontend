@@ -2,28 +2,30 @@ import React, {Component} from 'react';
 import Button from './Button';
 import PropTypes from 'prop-types';
 
+const today = () =>{
+    return `${new Date().getMonth()+1}/${new Date().getDate()}/${new Date().getFullYear()}`;
+};
+
 class CloseTicket extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state = {
             ticket:{
-                resolution:'', closedBy:'', closeDate:'', closed:true 
+                resolution:'', closedBy:'', closeDate:'', open:'false' 
             }
         };
     };
     handleChange=(event)=>{
         let updatedTicket = { ...this.state.ticket}
-        updatedTicket[event.target.name]=event.target.value;
+        updatedTicket.resolution=event.target.value;
+        updatedTicket.closedBy=this.props.user.name;
+        updatedTicket.closeDate=today();
         this.setState({ticket:updatedTicket}, () => {
-            console.log(updatedTicket)
         })
     };
     handleSubmit = (event) =>{
         event.preventDefault();
         this.props.handleUpdateTicketSubmit(event, this.state.ticket, this.props.ticket._id);
-        // let emptyTicket= {openedBy:'', client:'', issue:'', resolution:'', closedBy:'', closeDate:''};
-        // this.setState({ticket :emptyTicket});
-        // event.target.reset();
     };
     render(){
         return (
@@ -36,7 +38,6 @@ class CloseTicket extends Component {
                             <div className="ui fluid input">
                                 <input type="text" 
                                     name="resolution"
-                                    defaultValue={this.props.ticket.resolution}
                                     onChange={this.handleChange}
                                 />
                             </div>
@@ -55,13 +56,13 @@ CloseTicket.propTypes = {
     handleUpdateBlogSubmit: PropTypes.func,
     ticket: 
         PropTypes.shape({
-            openedBy: PropTypes.string.isRequired,
-            client: PropTypes.string.isRequired,
-            issue: PropTypes.string.isRequired,
-            resolution: PropTypes.string.isRequired,
-            closedBy: PropTypes.string.isRequired,
-            closeDate: PropTypes.string.isRequired,
-            _id: PropTypes.string.isRequired
+            openedBy: PropTypes.string,
+            client: PropTypes.string,
+            issue: PropTypes.string,
+            resolution: PropTypes.string,
+            closedBy: PropTypes.string,
+            closeDate: PropTypes.string,
+            _id: PropTypes.string
         })
 }
 

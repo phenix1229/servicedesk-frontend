@@ -1,7 +1,8 @@
 import React from 'react'
 import Button from './Button'
 
-const TicketItem = ({onClose, onUpdate, ticket})=> {
+
+const TicketItem = ({onUpdate, handleCloseTicket, ticket})=> {
     return(
         <div  className="ui card" style={{width:'75vw', padding:'20px'}}>
             <div className="content">
@@ -25,7 +26,7 @@ const TicketItem = ({onClose, onUpdate, ticket})=> {
                 {ticket.closeDate && <div className="meta">Close Date: {ticket.closeDate}</div>}
                 <br />
                 {ticket.open === true && <Button className="ui primary button" style={{ margin:'10px 15px'}} onClick={()=>{
-                    return onClose(ticket._id)
+                    return handleCloseTicket(ticket._id)
                 }}>
                     Close
                 </Button>}

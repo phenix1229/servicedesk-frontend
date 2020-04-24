@@ -13,7 +13,7 @@ const Tickets = (props) => {
         .filter(searchIt(props.searchTerm))
         .map((ticket,idx)=>{
           return (
-            <TicketItem  key={ticket._id} onDelete={props.onDelete} onUpdate={props.onUpdate} ticket={ticket} />
+            <TicketItem  key={ticket._id} handleCloseTicket={props.handleCloseTicket} onUpdate={props.onUpdate} ticket={ticket} />
           )
         })}
         <br />
