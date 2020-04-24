@@ -1,6 +1,7 @@
 import React , {Component} from 'react';
 import Search from './Search';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 
 class Sidebar extends Component {
@@ -34,5 +35,12 @@ class Sidebar extends Component {
     }
 }
 
+Sidebar.propTypes = {
+    logoutUser: PropTypes.func,
+    searchTerm: PropTypes.func,
+    handleCreateTicket: PropTypes.func,
+    loadOpenTickets: PropTypes.func,
+    loadClosedTickets: PropTypes.func,
+}
 
 export default Sidebar;

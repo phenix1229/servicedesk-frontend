@@ -89,7 +89,7 @@ class UpdateTicket extends Component {
 
 UpdateTicket.propTypes = {
     handleUpdateBlogSubmit: PropTypes.func,
-    blog: 
+    ticket: 
         PropTypes.shape({
             openedBy: PropTypes.string.isRequired,
             client: PropTypes.string.isRequired,
