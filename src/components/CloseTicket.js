@@ -25,7 +25,7 @@ class CloseTicket extends Component {
     };
     handleSubmit = (event) =>{
         event.preventDefault();
-        this.props.handleUpdateTicketSubmit(event, this.state.ticket, this.props.ticket._id);
+        this.props.handleCloseTicketSubmit(event, this.state.ticket, this.props.ticket._id);
     };
     render(){
         return (

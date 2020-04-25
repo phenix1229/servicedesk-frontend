@@ -41,7 +41,7 @@ class LoginForm extends Component {
         return (
             <div id='loginFormMain'>
             <div id='loginFormHeader'>
-                    <h1 id='appTitle' style={{fontSize:'40px'}}>ServiceDesk</h1>
+                    <h1 id='appTitle' style={{fontSize:'40px'}}>PenguinDesk</h1>
                     <h5 id='appSubtitle'>Ticket Tracker</h5>
             </div>
             <div id='loginForm'>
