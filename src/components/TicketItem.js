@@ -19,11 +19,11 @@ const TicketItem = ({onUpdate, handleCloseTicket, ticket})=> {
                         <p>{item}</p>
                     )
                 })}</div>}
-                {ticket.resolution && <br />}
-                {ticket.resolution && <div className="meta">Resolution: {ticket.resolution}</div>}
-                {ticket.closedBy && <br />}
-                {ticket.closedBy && <div className="meta">Closed By: {ticket.closedBy}</div>}
-                {ticket.closeDate && <div className="meta">Close Date: {ticket.closeDate}</div>}
+                {ticket.open === false && <br />}
+                {ticket.open === false && <div className="meta">Resolution: {ticket.resolution}</div>}
+                {ticket.open === false && <br />}
+                {ticket.open === false && <div className="meta">Closed By: {ticket.closedBy}</div>}
+                {ticket.open === false && <div className="meta">Close Date: {ticket.closeDate}</div>}
                 <br />
                 {ticket.open === true && <Button className="ui primary button" style={{ margin:'10px 15px'}} onClick={()=>{
                     return handleCloseTicket(ticket._id)

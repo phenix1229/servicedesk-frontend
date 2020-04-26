@@ -11,15 +11,13 @@ class CloseTicket extends Component {
         super(props)
         this.state = {
             ticket:{
-                resolution:'', closedBy:'', closeDate:'', open:'false' 
+                resolution:'', closedBy:this.props.user.name, closeDate:today(), open:'false' 
             }
         };
     };
     handleChange=(event)=>{
         let updatedTicket = { ...this.state.ticket}
         updatedTicket.resolution=event.target.value;
-        updatedTicket.closedBy=this.props.user.name;
-        updatedTicket.closeDate=today();
         this.setState({ticket:updatedTicket}, () => {
         })
     };

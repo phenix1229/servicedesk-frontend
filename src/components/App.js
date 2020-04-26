@@ -141,7 +141,6 @@ class App extends Component {
     };
     handleCloseTicketSubmit = (event, ticket, id) => {
         event.preventDefault();
-        // console.log(ticket)
         this.setState({
             createTicket: false
         });

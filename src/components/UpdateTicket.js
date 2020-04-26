@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import Button from './Button';
 import PropTypes from 'prop-types';
 
+const today = () =>{
+    return `${new Date().getMonth()+1}/${new Date().getDate()}/${new Date().getFullYear()} (${new Date().getHours()}:${new Date().getMinutes()})`;
+};
+
 class UpdateTicket extends Component {
     constructor(){
         super()
@@ -14,7 +18,7 @@ class UpdateTicket extends Component {
     handleSubmit = (event) =>{
         event.preventDefault();
         let updatedTicket = {comments:[]};
-        this.props.ticket.comments.push(document.getElementById('comment').value);
+        this.props.ticket.comments.push(`${today()} - ${document.getElementById('comment').value}`);
         updatedTicket.comments=[...this.props.ticket.comments];
         this.props.handleUpdateTicketSubmit(event, updatedTicket, this.props.ticket._id);
     };
