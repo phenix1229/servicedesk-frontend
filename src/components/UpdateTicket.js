@@ -12,14 +12,16 @@ class UpdateTicket extends Component {
         this.state = {
             ticket:{
                 comments:[] 
-            }
+            },
+            error:''
         };
     };
     handleSubmit = (event) =>{
         event.preventDefault();
         let updatedTicket = {comments:[]};
-        this.props.ticket.comments.push(`${today()} - ${document.getElementById('comment').value}`);
+        this.props.ticket.comments.push(`${today()} - ${document.getElementById('comment').value.trim()}`);
         updatedTicket.comments=[...this.props.ticket.comments];
+        document.getElementById('comment').value === '' ? this.setState({error:'Please enter a comment'}) :
         this.props.handleUpdateTicketSubmit(event, updatedTicket, this.props.ticket._id);
     };
     render(){
@@ -30,6 +32,7 @@ class UpdateTicket extends Component {
                     <div className="equal width fields">   
                         <div className="field">
                             <label style={{color:'rgb(107, 105, 105)'}}>Comment</label>
+                            {this.state.error.length > 0 && <h2 style={{color:'red'}}>{this.state.error}</h2>}
                             <div className="ui fluid input">
                                 <input type="text" 
                                     name="comments"

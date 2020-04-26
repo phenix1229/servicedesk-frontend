@@ -8,29 +8,33 @@ class CreateTicket extends Component {
         this.state = {
             ticket:{
                 openedBy:'', client:'', issue:'', resolution:'', closedBy:'', closeDate:'', 
-            }
+            },
+            error:false
         };
     };
     handleChange=(event)=>{
         let updatedTicket = { ...this.state.ticket};
         updatedTicket.openedBy = this.props.user.name;
-        updatedTicket[event.target.name]=event.target.value;
+        updatedTicket[event.target.name]=event.target.value.trim();
         this.setState({ticket:updatedTicket}, () => {
             console.log(updatedTicket)
         })
     };
     handleSubmit = (event) =>{
         event.preventDefault();
+        if(this.state.ticket.client === '' || this.state.ticket.issue === ''){
+            return this.setState({error: true});
+        } 
+        // else if (this.state.ticket.client !== '' && this.state.ticket.issue !== ''){
+        //     return this.setState({error: false});
+        // };
         this.props.handleCreateTicketSubmit(event, this.state.ticket);
-        
-        // let emptyTicket= {openedBy:'', client:'', issue:'', resolution:'', closedBy:'', closeDate:''};
-        // this.setState({ticket:emptyTicket});
-        // event.target.reset();
     };
     render(){
         return (
             <div style={{margin:'40px'}}>
                 <h1 style={{color:'rgb(107, 105, 105)'}}>Create Ticket:</h1>
+                {this.state.error === true && <h2 style={{color:'red'}}>All fields required</h2>}
                 <form onSubmit={this.handleSubmit} className="ui form" >
                     <div className="equal width fields">   
                         <div className="field">

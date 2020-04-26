@@ -3,7 +3,7 @@ import Button from './Button';
 import PropTypes from 'prop-types';
 
 const today = () =>{
-    return `${new Date().getMonth()+1}/${new Date().getDate()}/${new Date().getFullYear()}`;
+    return `${new Date().getMonth()+1}/${new Date().getDate()}/${new Date().getFullYear()} (${new Date().getHours()}:${new Date().getMinutes()})`;
 };
 
 class CloseTicket extends Component {
@@ -12,17 +12,19 @@ class CloseTicket extends Component {
         this.state = {
             ticket:{
                 resolution:'', closedBy:this.props.user.name, closeDate:today(), open:'false' 
-            }
+            },
+            error:''
         };
     };
     handleChange=(event)=>{
         let updatedTicket = { ...this.state.ticket}
-        updatedTicket.resolution=event.target.value;
+        updatedTicket.resolution=event.target.value.trim();
         this.setState({ticket:updatedTicket}, () => {
         })
     };
     handleSubmit = (event) =>{
         event.preventDefault();
+        this.state.ticket.resolution === '' ? this.setState({error:'Please enter a resolution'}) :
         this.props.handleCloseTicketSubmit(event, this.state.ticket, this.props.ticket._id);
     };
     render(){
@@ -33,6 +35,7 @@ class CloseTicket extends Component {
                     <div className="equal width fields">   
                         <div className="field">
                             <label style={{color:'rgb(107, 105, 105)'}}>Resolution</label>
+                            {this.state.error.length > 0 && <h2 style={{color:'red'}}>{this.state.error}</h2>}
                             <div className="ui fluid input">
                                 <input type="text" 
                                     name="resolution"
