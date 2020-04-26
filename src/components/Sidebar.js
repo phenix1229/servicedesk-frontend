@@ -2,6 +2,7 @@ import React , {Component} from 'react';
 import Search from './Search';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import Dashboard from './Dashboard';
 
 
 class Sidebar extends Component {
@@ -16,6 +17,7 @@ class Sidebar extends Component {
                     <h1 id='appTitle'>PenguinDesk&copy;</h1>
                     <h5 id='appSubtitle'>Ticket Tracker</h5>
                 </div>
+                {this.props.dashboard === false && <Dashboard dashboard={this.props.dashboard} counts={this.props.counts}/>}
                 <Search handleChange={this.props.handleChange} searchTerm={this.props.searchTerm} />
                 <br /> 
                 <button className="ui primary button" style={{ backgroundColor:'#F2F2F2', color:'rgb(107, 105, 105)', marginBottom:'10px'}} onClick={this.props.handleCreateTicket}>

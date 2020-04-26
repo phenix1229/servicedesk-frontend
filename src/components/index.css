@@ -51,7 +51,17 @@
     padding-top:'20px';
     padding-bottom:'20px';
 }
+
 #loginForm {
     grid-column: 3/4;
     grid-row: 2/3;
+}
+
+#dashSmall {
+    margin-top: 15px;
+    margin-bottom: 0px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: #F2F2F2;
+    padding: 15px;
 }

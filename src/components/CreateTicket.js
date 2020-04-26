@@ -21,10 +21,11 @@ class CreateTicket extends Component {
     };
     handleSubmit = (event) =>{
         event.preventDefault();
-        this.props.handleCreateTicketSubmit(event, this.state.ticket)
-        let emptyTicket= {openedBy:'', client:'', issue:'', resolution:'', closedBy:'', closeDate:''};
-        this.setState({ticket:emptyTicket});
-        event.target.reset();
+        this.props.handleCreateTicketSubmit(event, this.state.ticket);
+        
+        // let emptyTicket= {openedBy:'', client:'', issue:'', resolution:'', closedBy:'', closeDate:''};
+        // this.setState({ticket:emptyTicket});
+        // event.target.reset();
     };
     render(){
         return (

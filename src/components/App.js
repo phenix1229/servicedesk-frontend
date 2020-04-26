@@ -69,7 +69,7 @@ class App extends Component {
             const openTickets = tickets.data.filter((item) => {
                 return item.open === true
             })
-            this.setState({tickets: openTickets, openTickets:true, closedTickets:false, createTicket:false, updateTicket:false, closeTicket:false, ticket:{}})
+            this.setState({tickets: openTickets, openTickets:true, closedTickets:false, createTicket:false, updateTicket:false, closeTicket:false, dashboard:false, ticket:{}})
         })
     };
     loadClosedTickets = () => {
@@ -77,7 +77,7 @@ class App extends Component {
             const closedTickets = tickets.data.filter((item) => {
                 return item.open === false
             })
-            this.setState({tickets: closedTickets, openTickets:false, closedTickets:true, createTicket:false, updateTicket:false, closeTicket:false, ticket:{}})
+            this.setState({tickets: closedTickets, openTickets:false, closedTickets:true, createTicket:false, updateTicket:false, closeTicket:false, dashboard:false, ticket:{}})
         })
     };
     loadTicket = (id) => {
@@ -86,6 +86,7 @@ class App extends Component {
                 createTicket: false,
                 openTickets: false,
                 closedTickets: false,
+                dashboard:false,
                 ticket: ticket.data
             })
         })
@@ -116,8 +117,9 @@ class App extends Component {
             }
         };
         axios.post('/ticket', ticket, axiosConfig).then(() => {
-            this.setState({openTickets:true, closedTickets:false, updateTicket:false, createTicket:false});
+            this.setState({openTickets:true, closedTickets:false, updateTicket:false, createTicket:false, dashboard:false});
             this.loadOpenTickets();
+            this.countTickets();
         });
     };
     handleUpdateTicketSubmit = (event, ticket, id) => {
@@ -133,13 +135,13 @@ class App extends Component {
             }
         };
         axios.put(`/ticket/${id}`, ticket, axiosConfig).then(() => {
-            this.setState({openTickets:true, closedTickets:false, updateTicket:false, createTicket:false, closeTicket:false, ticket:{}});
+            this.setState({openTickets:true, closedTickets:false, updateTicket:false, createTicket:false, closeTicket:false, dashboard:false, ticket:{}});
             this.loadOpenTickets();
         })
     };
     handleCloseTicketSubmit = (event, ticket, id) => {
         event.preventDefault();
-        console.log(ticket)
+        // console.log(ticket)
         this.setState({
             createTicket: false
         });
@@ -150,12 +152,13 @@ class App extends Component {
             }
         };
         axios.put(`/ticket/${id}`, ticket, axiosConfig).then(() => {
-            this.setState({openTickets:false, closedTickets:true, updateTicket:false, createTicket:false, closeTicket:false, ticket:{}});
+            this.setState({openTickets:false, closedTickets:true, updateTicket:false, createTicket:false, closeTicket:false, dashboard:false, ticket:{}});
             this.loadClosedTickets();
+            this.countTickets();
         })
     };
     handleCreateTicket = () => {
-        this.setState({createTicket:true, openTickets:false, updateTicket:false, closedTickets:false, closeTicket:false, ticket:{}})
+        this.setState({createTicket:true, openTickets:false, updateTicket:false, closedTickets:false, closeTicket:false, dashboard:false, ticket:{}})
     };
     componentDidMount(){
         // this.loadOpenTickets();
@@ -164,13 +167,13 @@ class App extends Component {
         if(this.state.loggedIn){
         return (
             <div id='app'>
-                <Sidebar handleChange={this.handleChange} searchTerm={this.state.searchTerm} handleCreateTicket={this.handleCreateTicket} loadOpenTickets={this.loadOpenTickets} loadClosedTickets={this.loadClosedTickets} logoutUser={this.logoutUser} />
+                <Sidebar handleChange={this.handleChange} searchTerm={this.state.searchTerm} handleCreateTicket={this.handleCreateTicket} loadOpenTickets={this.loadOpenTickets} loadClosedTickets={this.loadClosedTickets} logoutUser={this.logoutUser} dashboard={this.state.dashboard} counts={this.state.ticketCounts} />
                 <div id='main' style={{
                     justifyContent:'center', 
                     alignItems: 'center', 
                 }}>
                     {this.state.dashboard ? (<Dashboard countTickets={this.countTickets} dashboard={this.state.dashboard} counts={this.state.ticketCounts} />) : null}
-                    {this.state.createTicket ? (<CreateTicket handleCreateTicketSubmit={this.handleCreateTicketSubmit} user={this.state.userObject} />) : null}
+                    {this.state.createTicket ? (<CreateTicket handleCreateTicketSubmit={this.handleCreateTicketSubmit} user={this.state.userObject}  />) : null}
                     {this.state.updateTicket ? (<UpdateTicket handleUpdateTicketSubmit={this.handleUpdateTicketSubmit} ticket={this.state.ticket} />) : null}
                     {this.state.closeTicket ? (<CloseTicket handleCloseTicketSubmit={this.handleCloseTicketSubmit} ticket={this.state.ticket} user={this.state.userObject} />) : null}
                     {this.state.openTickets ? (<Tickets tickets={this.state.tickets} searchTerm={this.state.searchTerm} handleCloseTicket={this.handleCloseTicket} onUpdate={this.onUpdate} />) : null}
