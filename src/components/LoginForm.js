@@ -8,6 +8,8 @@ class LoginForm extends Component {
         super();
         this.state = {
             user:{name:'', email:'', password:''},
+            emptyField:false,
+            loginError:false
         };
     };
     handleChange=(event)=>{
@@ -18,6 +20,9 @@ class LoginForm extends Component {
     };
     handleSubmit = (event) =>{
         event.preventDefault();
+        if(this.state.user.email === '' || this.state.user.password === ''){
+            return this.setState({emptyField:true});
+        }
         this.login(event, this.state.user)
     }
     login(event, user) {
@@ -34,7 +39,7 @@ class LoginForm extends Component {
             this.props.updateUser(
                 response.data
             )
-        }
+        } 
     })
 }
     render(){
@@ -45,6 +50,7 @@ class LoginForm extends Component {
                     <h5 id='appSubtitle'>Ticket Tracker</h5>
             </div>
             <div id='loginForm'>
+                {this.state.emptyField === true && <h2 style={{color:'red'}}>All fields required</h2>}
                 <form onSubmit={this.handleSubmit} className="ui form" >
                     <div className="equal width fields">   
                         <div className="field">

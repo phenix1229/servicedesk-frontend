@@ -16,18 +16,13 @@ class CreateTicket extends Component {
         let updatedTicket = { ...this.state.ticket};
         updatedTicket.openedBy = this.props.user.name;
         updatedTicket[event.target.name]=event.target.value.trim();
-        this.setState({ticket:updatedTicket}, () => {
-            console.log(updatedTicket)
-        })
+        this.setState({ticket:updatedTicket})
     };
     handleSubmit = (event) =>{
         event.preventDefault();
         if(this.state.ticket.client === '' || this.state.ticket.issue === ''){
             return this.setState({error: true});
         } 
-        // else if (this.state.ticket.client !== '' && this.state.ticket.issue !== ''){
-        //     return this.setState({error: false});
-        // };
         this.props.handleCreateTicketSubmit(event, this.state.ticket);
     };
     render(){
