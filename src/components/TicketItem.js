@@ -1,5 +1,6 @@
-import React from 'react'
-import Button from './Button'
+import React from 'react';
+import Button from './Button';
+import PropTypes from 'prop-types';
 
 
 const TicketItem = ({onUpdate, handleCloseTicket, ticket})=> {
@@ -16,7 +17,7 @@ const TicketItem = ({onUpdate, handleCloseTicket, ticket})=> {
                 {ticket.comments.length > 0 && <br />}
                 {ticket.comments.length > 0 && <div className="meta">Comments: {ticket.comments.map((item, idx) => {
                     return (
-                        <p>{item}</p>
+                        <p key={ticket.comments.indexOf(item)}>{item}</p>
                     )
                 })}</div>}
                 {ticket.open === false && <br />}
@@ -39,5 +40,18 @@ const TicketItem = ({onUpdate, handleCloseTicket, ticket})=> {
         </div>
     )
 };
+
+TicketItem.propTypes = {
+    onUpdate: PropTypes.func,
+    handleCloseTicket: PropTypes.func,
+    ticket: PropTypes.shape({
+        openedBy: PropTypes.string.isRequired,
+        client: PropTypes.string.isRequired,
+        issue: PropTypes.string.isRequired,
+        resolution: PropTypes.string.isRequired,
+        closedBy: PropTypes.string.isRequired,
+        closeDate: PropTypes.string.isRequired,
+      })
+}
 
 export default TicketItem;

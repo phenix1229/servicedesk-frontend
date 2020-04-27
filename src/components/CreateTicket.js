@@ -7,7 +7,7 @@ class CreateTicket extends Component {
         super()
         this.state = {
             ticket:{
-                openedBy:'', client:'', issue:'', resolution:'', closedBy:'', closeDate:'', 
+                openedBy:'', client:'', issue:'' 
             },
             error:false
         };

@@ -1,14 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const OpenStats = ({counts, percent}) => {
     if(counts === 0){
         return (
-            <div id="openStats" class="ui large statistics">
-                <div class="green statistic">
-                    <div class="value" style={{marginLeft:'12.5px'}}>
+            <div id="openStats" className="ui large statistics">
+                <div className="green statistic">
+                    <div className="value" style={{marginLeft:'12.5px'}}>
                         {counts}
                     </div>
-                    <div class="label" style={{marginLeft:'12.5px'}}>
+                    <div className="label" style={{marginLeft:'12.5px'}}>
                         <h2>Open Tickets</h2>
                         <h3>{percent}%</h3>
                     </div>
@@ -18,12 +19,12 @@ const OpenStats = ({counts, percent}) => {
     };
     if(counts > 0 && counts < 5){
         return (
-            <div class="ui large statistics">
-                <div class="yellow statistic">
-                    <div class="value">
+            <div className="ui large statistics">
+                <div className="yellow statistic">
+                    <div className="value" style={{marginLeft:'12.5px'}}>
                         {counts}
                     </div>
-                    <div class="label">
+                    <div className="label" style={{marginLeft:'12.5px'}}>
                         <h2>Open Tickets</h2>
                         <h3>{percent}%</h3>
                     </div>
@@ -33,12 +34,12 @@ const OpenStats = ({counts, percent}) => {
     }
     if(counts >= 5){
         return (
-            <div class="ui large statistics">
-                <div class="red statistic">
-                    <div class="value">
+            <div className="ui large statistics">
+                <div className="red statistic">
+                    <div className="value" style={{marginLeft:'12.5px'}}>
                         {counts}
                     </div>
-                    <div class="label">
+                    <div className="label" style={{marginLeft:'12.5px'}}>
                         <h2>Open Tickets</h2>
                         <h3>{percent}%</h3>
                     </div>
@@ -49,5 +50,10 @@ const OpenStats = ({counts, percent}) => {
         return null
     }
 };
+
+OpenStats.propTypes = {
+    counts: PropTypes.number,
+    percent: PropTypes.number,
+}
 
 export default OpenStats;
