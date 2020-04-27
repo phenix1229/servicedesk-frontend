@@ -19,9 +19,11 @@ class UpdateTicket extends Component {
     handleSubmit = (event) =>{
         event.preventDefault();
         let updatedTicket = {comments:[]};
-        this.props.ticket.comments.push(`${today()} - ${document.getElementById('comment').value.trim()}`);
+        if(document.getElementById('comment').value.trim() !== ''){
+            this.props.ticket.comments.push(`${today()} - ${document.getElementById('comment').value.trim()}`);
+        }
         updatedTicket.comments=[...this.props.ticket.comments];
-        document.getElementById('comment').value === '' ? this.setState({error:'Please enter a comment'}) :
+        document.getElementById('comment').value.trim() === '' ? this.setState({error:'Please enter a comment'}) : 
         this.props.handleUpdateTicketSubmit(event, updatedTicket, this.props.ticket._id);
     };
     render(){

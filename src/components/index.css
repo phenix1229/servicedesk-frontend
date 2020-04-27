@@ -57,6 +57,10 @@
     grid-row: 2/3;
 }
 
+#openStats {
+    text-align: center;
+}
+
 #dashSmall {
     margin-top: 15px;
     margin-bottom: 0px;

@@ -1,6 +1,8 @@
 import React  from 'react';
 import PropTypes from 'prop-types';
-import './index.css'
+import OpenStats from './OpenStats';
+import ClosedStats from './ClosedStats';
+import './index.css';
 
 const Dashboard = (props) => {
     if(props.dashboard === true){
@@ -10,10 +12,8 @@ const Dashboard = (props) => {
             <div id='dashBig'>
                 <br />
                 <br />
-                <h1 id='openBig'>Open Tickets: {props.counts[0]}</h1>
-                <h2>{openPercent}%</h2>
-                <h1 id='closedBig'>Closed Tickets: {props.counts[1]}</h1>
-                <h2>{closedPercent}%</h2>
+                <OpenStats counts={props.counts[0]} percent={openPercent}/>
+                <ClosedStats counts={props.counts[1]} percent={closedPercent}/>
             </div>
         )
     } else {
